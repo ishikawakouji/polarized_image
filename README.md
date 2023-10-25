@@ -1,7 +1,6 @@
 # 偏光画像の分析
 
 FLIRの BFS-U3-51S5P-C による偏光画像を分析するツールを streamlit で動かしてみました。
-まだデモザイクしかできていません。
 
 ## 必要なもの
 
@@ -13,7 +12,7 @@ FLIRの BFS-U3-51S5P-C による偏光画像を分析するツールを streamli
 
 # polarized_image
 This is 
-analyse polarized image on streamlit. Only demosaic feature is available.
+analyse polarized image on streamlit.
 
 Polarized images are made by FLIR, BFS-U3-51S5P-C.
 
