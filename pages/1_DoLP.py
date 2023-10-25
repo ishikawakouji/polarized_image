@@ -7,12 +7,14 @@ st.markdown("# DoLP page")
 st.sidebar.markdown("# DoLP page")
 
 
+@st.cache_data
 def adjust_gamma(image, gamma):
     image_u8 = np.clip(image, 0, 255).astype(np.uint8)
     table = (255.0 * (np.linspace(0, 1, 256) ** gamma)).astype(np.uint8)
     return cv2.LUT(image_u8, table)
 
 
+@st.cache_data
 def generate_colormap(color0, color1):
     colormap = np.zeros((256, 3), dtype=np.uint8)
     colormap[:128] = np.linspace(1, 0, 128)[..., None] * np.array(color0)
@@ -20,12 +22,8 @@ def generate_colormap(color0, color1):
     return np.clip(colormap, 0, 255)
 
 
-if "org_image" in st.session_state:
-    st.write(st.session_state["image_file"])
-
-    # get image
-    org_img = st.session_state["org_image"]
-
+@st.cache_data
+def draw_dolp(org_img):
     # demosaic
     img_demosaiced_list = pa.demosaicing(org_img, pa.COLOR_PolarMono)
 
@@ -72,3 +70,12 @@ if "org_image" in st.session_state:
         st.image(img_s0_u8, caption="s0")
         st.image(img_s1_u8, caption="s1")
         st.image(img_s2_u8, caption="s2")
+
+
+if "org_image" in st.session_state:
+    st.write(st.session_state["image_file"])
+
+    # get image
+    org_img = st.session_state["org_image"]
+
+    draw_dolp(org_img)

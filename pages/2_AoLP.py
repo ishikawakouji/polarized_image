@@ -6,12 +6,9 @@ import numpy as np
 st.markdown("# AoLP page")
 st.sidebar.markdown("# AoLP page")
 
-if "org_image" in st.session_state:
-    st.write(st.session_state["image_file"])
 
-    # get image
-    org_img = st.session_state["org_image"]
-
+@st.cache_data
+def draw_aolp_images(org_img):
     # demosaic
     img_demosaiced_list = pa.demosaicing(org_img, pa.COLOR_PolarMono)
 
@@ -45,3 +42,12 @@ if "org_image" in st.session_state:
     with col2:
         st.image(img_aolp_s_u8, caption="AoLP_s")
         st.image(img_aolp_v_u8, caption="AoLP_v")
+
+
+if "org_image" in st.session_state:
+    st.write(st.session_state["image_file"])
+
+    # get image
+    org_img = st.session_state["org_image"]
+
+    draw_aolp_images(org_img)
